@@ -18,6 +18,10 @@ public class Movie {
 		this(title, year, duration, null);
 	}
 	
+	public Movie(String title, int year, Person director) {
+		this(title, year, 0, director);
+	}
+
 	public Movie(String title, int year, int duration, Person director) {
 		super();
 		this.title = Objects.requireNonNull(title);
