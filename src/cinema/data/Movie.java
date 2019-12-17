@@ -7,6 +7,7 @@ public class Movie {
 	private String title;
 	private int year;
 	private int duration;
+	private Person director;
 
 	// constructors
 	public Movie(String title, int year) {
@@ -14,10 +15,15 @@ public class Movie {
 	}
 
 	public Movie(String title, int year, int duration) {
+		this(title, year, duration, null);
+	}
+	
+	public Movie(String title, int year, int duration, Person director) {
 		super();
 		this.title = Objects.requireNonNull(title);
 		this.year = year;
 		this.duration = duration;
+		this.director = director;
 	}
 
 	// getters + setters
@@ -44,6 +50,14 @@ public class Movie {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+	
+	public Person getDirector() {
+		return director;
+	}
+
+	public void setDirector(Person director) {
+		this.director = director;
+	}
 
 	// methods from Object
 	
@@ -56,11 +70,7 @@ public class Movie {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + year;
-		return result;
+		return Objects.hash(title, year);
 	}
 
 	@Override
