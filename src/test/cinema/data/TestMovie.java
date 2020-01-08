@@ -12,7 +12,6 @@ class TestMovie {
 	void test() {
 		Movie movie = new Movie();
 		System.out.println(movie);
-		System.out.println(movie.title);
 		new Movie();
 	}
 
