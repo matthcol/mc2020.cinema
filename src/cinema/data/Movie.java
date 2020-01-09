@@ -5,7 +5,8 @@ public class Movie {
 	private String title;
 	private int year;
 	private int duration;
-	
+
+	// constructors
 	public Movie(String title, int year) {
 		this(title, year, 0);
 	}
@@ -17,15 +18,10 @@ public class Movie {
 		this.duration = duration;
 	}
 
-	
-	
-	
+	// getters + setters
 	public String getTitle() {
 		return title;
 	}
-
-
-
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -47,6 +43,8 @@ public class Movie {
 		this.duration = duration;
 	}
 
+	// methods from Object
+	
 	@Override
 	public String toString() {
 		return title + " (" + year 
@@ -81,6 +79,5 @@ public class Movie {
 			return false;
 		return true;
 	}
-	
 	
 }
