@@ -42,8 +42,28 @@ class TestMovie {
 	void testEquals() {
 		Movie movieChaosI = new Movie("Chaos", 2005);
 		Movie movieChaosII = new Movie("Chaos", 2005);
-		System.out.println(movieChaosI == movieChaosII);
-		System.out.println(movieChaosI.equals(movieChaosII));
+		System.out.println("== : " + (movieChaosI == movieChaosII));
+		System.out.println("equals : "+ movieChaosI.equals(movieChaosII));
+	}
+	
+	@Test
+	void testEqualsNull() {
+		Movie movieChaosI = new Movie("Chaos", 2005);
+		Movie movieNull = null;
+		System.out.println("== : " + (movieChaosI == movieNull));
+		System.out.println("== : " + (movieNull == movieChaosI));
+		System.out.println("equals : "+ movieChaosI.equals(movieNull));
+		System.out.println("equals : "+ movieNull.equals(movieChaosI));
+	}
+	
+	@Test
+	void testEqualsTitleNull() {
+		Movie movieChaos = new Movie("Chaos", 2005);
+		Movie movieTitleNull = new Movie(null, 2005);
+		System.out.println("== : " + (movieChaos == movieTitleNull));
+		System.out.println("== : " + (movieTitleNull == movieChaos));
+		System.out.println("equals : "+ movieChaos.equals(movieTitleNull));
+		System.out.println("equals : "+ movieTitleNull.equals(movieChaos));
 	}
 	
 	@Test
