@@ -2,6 +2,7 @@ package cinema.persistence.entity.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,13 +14,17 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import cinema.persistence.entity.Movie;
+import cinema.persistence.entity.Person;
 import cinema.persistence.repository.MovieRepository;
 
 @DataJpaTest
-class TestMovie {
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+class TestMovieRepository {
 
 	@Autowired
 	MovieRepository repoMovie;
@@ -28,12 +33,26 @@ class TestMovie {
 	EntityManager entityManager;
 	
 	@Test
-	void testInsert() {
+	void testSave() {
 		Movie movie = new Movie("Joker", 2019);
 		repoMovie.save(movie);
 		var id = movie.getIdMovie();
 		System.out.println("Id new movie: " + id);
 		assertNotNull(id);
+	}
+	
+	
+	@Test
+	void testSaveWithDirector() {
+		// Given
+		Person person = new Person("Todd Phillips", LocalDate.of(1970, 12, 20));
+		Movie movie = new Movie("Joker", 2019, 165, person);
+		entityManager.persist(person); // already in cache
+		// when 
+		repoMovie.save(movie);
+		// then 
+		System.out.println(movie);
+		System.out.println(person);
 	}
 	
 	@Test

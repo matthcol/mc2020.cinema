@@ -2,9 +2,12 @@ package cinema.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,8 +21,7 @@ public class Movie {
 	private Integer year;
 	private Integer duration;
 	
-//	@Transient
-//	private String director;
+	private Person director;
 	
 	public Movie() {
 		super();
@@ -30,15 +32,22 @@ public class Movie {
 	}
 
 	public Movie(String title, Integer year, Integer duration) {
-		this(null, title, year, duration);
+		this(null, title, year, duration, null);
 	}
 
-	public Movie(Integer idMovie, String title, Integer year, Integer duration) {
+	public Movie(String title, Integer year, Integer duration, Person director) {
+		this(null, title, year, duration , director);
+	}
+	
+	public Movie(Integer idMovie, String title, Integer year, Integer duration, 
+			Person director) 
+	{
 		super();
 		this.idMovie = idMovie;
 		this.title = title;
 		this.year = year;
 		this.duration = duration;
+		this.director = director;
 	}
 
 	@Id
@@ -78,12 +87,25 @@ public class Movie {
 		this.duration = duration;
 	}
 	
+	
+	@ManyToOne // (fetch=FetchType.LAZY) : default EAGER
+	@JoinColumn(name="id_director", nullable=true)
+	public Person getDirector() {
+		return director;
+	}
+
+	public void setDirector(Person director) {
+		this.director = director;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder(title);
 		return builder.append(" (")
 				.append(year)
 				.append(')')
+				.append('#')
+				.append(idMovie)
 				.toString();
 	}
 }

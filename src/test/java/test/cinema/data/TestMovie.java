@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import cinema.data.Movie;
 import cinema.data.Person;
 
+
+
 class TestMovie {
 
 	@Test
@@ -30,8 +32,8 @@ class TestMovie {
 		// add directors
 		Person tp = new Person("Todd Phillips");
 		movie.setDirector(tp);
-		System.out.println(movie + " réalisé par " + movie.getDirector());
-		System.out.println(movie.getTitle() + " réalisé par " 
+		System.out.println(movie + " rÃ©alisÃ© par " + movie.getDirector());
+		System.out.println(movie.getTitle() + " rÃ©alisÃ© par " 
 					+ movie.getDirector().getName());
 		// Clint Eastwood
 		Person clint = new Person("Clint Eastwood", 

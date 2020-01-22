@@ -24,7 +24,7 @@ class TestMap {
 			System.out.println(" * year: " + year);
 		}
 		for (var year: nbMovieByYear.values()) {
-			System.out.println(" ° nb movies : " + year);
+			System.out.println(" - nb movies : " + year);
 		}
 	}
 
