@@ -3,6 +3,7 @@ package cinema.persistence.entity.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ import cinema.persistence.repository.MovieRepository;
 class TestMovieRepository {
 
 	@Autowired
-	MovieRepository repoMovie;
+	MovieRepository movieRepository;
 	
 	@Autowired
 	EntityManager entityManager;
@@ -35,7 +36,7 @@ class TestMovieRepository {
 	@Test
 	void testSave() {
 		Movie movie = new Movie("Joker", 2019);
-		repoMovie.save(movie);
+		movieRepository.save(movie);
 		var id = movie.getIdMovie();
 		System.out.println("Id new movie: " + id);
 		assertNotNull(id);
@@ -49,7 +50,7 @@ class TestMovieRepository {
 		Movie movie = new Movie("Joker", 2019, 165, person);
 		entityManager.persist(person); // already in cache
 		// when 
-		repoMovie.save(movie);
+		movieRepository.save(movie);
 		// then 
 		System.out.println(movie);
 		System.out.println(person);
@@ -66,7 +67,7 @@ class TestMovieRepository {
 				);
 		data.forEach(entityManager::persist);
 		// when
-		var dataRead = repoMovie.findAll();
+		var dataRead = movieRepository.findAll();
 		// then
 		dataRead.forEach(System.out::println);
 		assertEquals(data.size(), dataRead.size());
@@ -85,7 +86,7 @@ class TestMovieRepository {
 		entityManager.persist(movie);
 		var id = movie.getIdMovie();
 		// when
-		var movieReadOpt = repoMovie.findById(id);
+		var movieReadOpt = movieRepository.findById(id);
 		System.out.println(movieReadOpt);
 		assertAll(
 				()->assertTrue(movieReadOpt.isPresent()),
@@ -104,7 +105,7 @@ class TestMovieRepository {
 				);
 		data.forEach(entityManager::persist);
 		// when
-		var dataRead = repoMovie.findByTitle(title);
+		var dataRead = movieRepository.findByTitle(title);
 		System.out.println(dataRead);
 	}
 	
@@ -122,7 +123,7 @@ class TestMovieRepository {
 				);
 		data.forEach(entityManager::persist);
 		// when
-		var dataRead = repoMovie.findByYearBetween(year1, year2);
+		var dataRead = movieRepository.findByYearBetween(year1, year2);
 		// then
 		System.out.println(dataRead);
 		assertAll(
@@ -144,11 +145,36 @@ class TestMovieRepository {
 				new Movie(title, 2019));
 		data.forEach(entityManager::persist);
 		// when
-		var dataRead = repoMovie.findByTitleAndYear(title, year);
+		var dataRead = movieRepository.findByTitleAndYear(title, year);
 		// then
 		System.out.println(dataRead);
 		// TODO : asserts
 	}	
 	
-	
+	@Test
+	void testFindByActorsNameEndingWith() {
+		// given
+		var roiLion = new Movie("Le Roi Lion", 1994);  				
+		var armeFatale = new Movie("L'Arme Fatale", 1987); 
+		var madMax = new Movie("Mad Max", 1978);
+		var movies = List.of(roiLion, armeFatale, madMax);
+		movies.forEach(entityManager::persist);
+		var melGibson = new Person("Mel Gibson");
+		var whoopi = new Person("Whoopi Goldberg");
+		var danny = new Person("Danny Glover");
+		entityManager.persist(melGibson);
+		entityManager.persist(whoopi);
+		entityManager.persist(danny);
+		roiLion.getActors().add(whoopi);
+		madMax.getActors().add(melGibson);
+		Collections.addAll(armeFatale.getActors(), melGibson, danny);
+		entityManager.flush();
+		// when
+		var moviesWithMel = movieRepository.findByActorsNameEndingWith("Gibson");
+		// then 
+		assertAll(
+				()->assertTrue(moviesWithMel.contains(madMax), "Mad Max"),
+				()->assertTrue(moviesWithMel.contains(armeFatale), "Arme Fatale"),
+				()->assertFalse(moviesWithMel.contains(roiLion), "Roi Lion"));
+	}
 }
