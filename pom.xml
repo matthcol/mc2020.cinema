@@ -64,15 +64,12 @@
 	    <version>5.5.2</version>
 	    <scope>test</scope>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
 	<dependency>
 	    <groupId>org.junit.jupiter</groupId>
 	    <artifactId>junit-jupiter-engine</artifactId>
 	    <version>5.5.2</version>
 	    <scope>test</scope>
 	</dependency>
-
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
@@ -84,7 +81,6 @@
 	</dependency>
   </dependencies> 
   <build>
-  <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
 	<plugins>
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
