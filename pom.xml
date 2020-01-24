@@ -18,6 +18,7 @@
   </properties>
   
   <dependencies>
+	<!-- spring dependencies -->
   		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -56,6 +57,7 @@
 	        <artifactId>h2</artifactId>
 	        <scope>test</scope>
 		</dependency>
+<!-- JUNIT -->
 	<dependency>
 	    <groupId>org.junit.jupiter</groupId>
 	    <artifactId>junit-jupiter-api</artifactId>
