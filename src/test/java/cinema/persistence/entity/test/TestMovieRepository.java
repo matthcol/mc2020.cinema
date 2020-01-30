@@ -35,11 +35,14 @@ class TestMovieRepository {
 	
 	@Test
 	void testSave() {
+		// given 
 		Movie movie = new Movie("Joker", 2019);
+		// when
 		movieRepository.save(movie);
+		// then 
 		var id = movie.getIdMovie();
 		System.out.println("Id new movie: " + id);
-		assertNotNull(id);
+		assertNull(id);
 	}
 	
 	
@@ -106,7 +109,8 @@ class TestMovieRepository {
 		data.forEach(entityManager::persist);
 		// when
 		var dataRead = movieRepository.findByTitle(title);
-		System.out.println(dataRead);
+		// then
+		// assertEquals(title, actual);
 	}
 	
 	@Test

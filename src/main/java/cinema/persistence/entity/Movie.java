@@ -2,6 +2,8 @@ package cinema.persistence.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +27,7 @@ public class Movie {
 	private String title;
 	private Integer year;
 	private Integer duration;
+	private Set<String> genres;
 	
 	private Person director;
 	private List<Person> actors;
@@ -55,6 +58,7 @@ public class Movie {
 		this.duration = duration;
 		this.director = director;
 		this.actors = new ArrayList<>();
+		this.genres = new TreeSet<>();
 	}
 
 	@Id
