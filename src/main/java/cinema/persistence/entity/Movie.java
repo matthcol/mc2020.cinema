@@ -1,7 +1,9 @@
 package cinema.persistence.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -30,7 +32,7 @@ public class Movie {
 	private Set<String> genres;
 	
 	private Person director;
-	private List<Person> actors;
+	private Map<Person, String> actors;
 	
 	public Movie() {
 		this(null,null);
@@ -57,7 +59,7 @@ public class Movie {
 		this.year = year;
 		this.duration = duration;
 		this.director = director;
-		this.actors = new ArrayList<>();
+		this.actors = new HashMap<>();
 		this.genres = new TreeSet<>();
 	}
 
@@ -115,7 +117,8 @@ public class Movie {
      	inverseJoinColumns=@JoinColumn(name="id_actor")
      )
 	public List<Person> getActors() {
-		return actors;
+		return actors.keySet().stream().
+				collect(Collectors.toList());
 	}
 
 	public void setActors(List<Person> actors) {
