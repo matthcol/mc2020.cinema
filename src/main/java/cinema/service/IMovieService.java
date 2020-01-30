@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import cinema.dto.SimpleMovie;
+import cinema.dto.MovieLight;
 import cinema.persistence.entity.Movie;
 
 public interface IMovieService {
-	List<SimpleMovie> getAllMovies();
+	List<MovieLight> getAllMovies();
 	Optional<Movie> getMovieById(int idMovie);
 	Set<Movie> getMovieByPartialTitle(String partialTitle);
 	Set<Movie> getMoviesByDirector(int idDirector);

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cinema.dto.SimpleMovie;
+import cinema.dto.MovieLight;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
@@ -31,10 +31,10 @@ public class MovieService implements IMovieService {
 	ModelMapper mapper;
 
 	@Override
-	public List<SimpleMovie> getAllMovies() {
+	public List<MovieLight> getAllMovies() {
 		List<Movie> movieEntities = movieRepository.findAll();
 		return movieEntities.stream()
-			.map(me->mapper.map(me, SimpleMovie.class))
+			.map(me->mapper.map(me, MovieLight.class))
 			.collect(Collectors.toList());
 	}
 

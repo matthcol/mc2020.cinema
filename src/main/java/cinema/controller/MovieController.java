@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import cinema.dto.SimpleMovie;
+import cinema.dto.MovieLight;
 import cinema.persistence.entity.Movie;
 
 import cinema.service.IMovieService;
@@ -31,7 +31,7 @@ public class MovieController {
 	
 	@GetMapping
 	@ResponseBody
-	public List<SimpleMovie> allMovies() {
+	public List<MovieLight> allMovies() {
 		return movieService.getAllMovies();
 	}
 	

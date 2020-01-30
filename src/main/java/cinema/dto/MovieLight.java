@@ -1,6 +1,6 @@
 package cinema.dto;
 
-public class SimpleMovie {
+public class MovieLight {
 	private Integer idMovie;
 	private String title;
 	private Integer year;
