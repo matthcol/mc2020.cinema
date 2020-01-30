@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -122,7 +123,8 @@ public class Movie {
 	}
 
 	public void setActors(List<Person> actors) {
-		this.actors = actors;
+		// TODO TODO TODO
+		this.actors = null;
 	}
 	
 	@Override
