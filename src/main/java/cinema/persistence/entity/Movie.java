@@ -33,6 +33,8 @@ public class Movie {
 	private Set<String> genres;
 	
 	private Person director;
+	
+	// a lot TODO here
 	private Map<Person, String> actors;
 	
 	public Movie() {
