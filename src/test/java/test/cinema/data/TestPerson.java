@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import cinema.data.Person;
+import cinema.dto.Person;
 
 class TestPerson {
 

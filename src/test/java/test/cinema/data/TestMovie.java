@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import cinema.data.Movie;
-import cinema.data.Person;
+import cinema.dto.Movie;
+import cinema.dto.Person;
 
 
 

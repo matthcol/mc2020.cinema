@@ -1,4 +1,4 @@
-package cinema.data;
+package cinema.dto;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import cinema.data.Movie;
+import cinema.dto.Movie;
 import tools.TriFunction;
 
 class TestTriFunction {

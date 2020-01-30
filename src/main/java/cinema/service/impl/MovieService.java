@@ -4,11 +4,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cinema.dto.SimpleMovie;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
@@ -23,10 +26,16 @@ public class MovieService implements IMovieService {
 	
 	@Autowired
 	PersonRepository personRepository;
+	
+	@Autowired
+	ModelMapper mapper;
 
 	@Override
-	public List<Movie> getAllMovies() {
-		return movieRepository.findAll();
+	public List<SimpleMovie> getAllMovies() {
+		List<Movie> movieEntities = movieRepository.findAll();
+		return movieEntities.stream()
+			.map(me->mapper.map(me, SimpleMovie.class))
+			.collect(Collectors.toList());
 	}
 
 	@Override

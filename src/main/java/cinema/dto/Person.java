@@ -1,4 +1,4 @@
-package cinema.data;
+package cinema.dto;
 
 import java.time.LocalDate;
 import java.time.MonthDay;

@@ -21,8 +21,8 @@ import javax.print.attribute.standard.Fidelity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cinema.data.Movie;
-import cinema.data.Person;
+import cinema.dto.Movie;
+import cinema.dto.Person;
 
 class TestCinema {
 
