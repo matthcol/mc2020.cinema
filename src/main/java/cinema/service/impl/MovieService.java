@@ -81,9 +81,9 @@ public class MovieService implements IMovieService {
 	@Override
 	public Optional<MovieFull> addActor(int idActor, int idMovie) {
 		return movieRepository.findById(idMovie)
-			.flatMap((Movie me) -> personRepository.findById(idActor)
-					.map((Person a) -> { 
-							me.getActors().add(a);
+			.flatMap(me -> personRepository.findById(idActor)
+					.map(ae -> { 
+							me.getActors().add(ae);
 							return mapper.map(me, MovieFull.class);
 					}));
 	}
