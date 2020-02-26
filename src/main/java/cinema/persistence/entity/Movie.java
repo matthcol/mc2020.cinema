@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,7 +29,8 @@ public class Movie {
 	private String title;
 	private Integer year;
 	private Integer duration;
-	private Set<String> genres;
+	private List<String> genres;
+	private String synopsis;
 	
 	private Person director;
 	private List<Person> actors;
@@ -58,7 +61,7 @@ public class Movie {
 		this.duration = duration;
 		this.director = director;
 		this.actors = new ArrayList<>();
-		this.genres = new TreeSet<>();
+		this.genres = new ArrayList<>();
 	}
 
 	@Id
@@ -90,6 +93,7 @@ public class Movie {
 		this.year = year;
 	}
 
+	@Column(nullable = true)
 	public Integer getDuration() {
 		return duration;
 	}
@@ -98,7 +102,28 @@ public class Movie {
 		this.duration = duration;
 	}
 	
-	
+	@ElementCollection
+	@CollectionTable(
+			name = "genres",
+			joinColumns = @JoinColumn(name = "id_movie"))
+	@Column(name="genre")
+	public List<String> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<String> genres) {
+		this.genres = genres;
+	}
+
+	@Column(nullable = true)
+	public String getSynopsis() {
+		return synopsis;
+	}
+
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
+	}
+
 	@ManyToOne // (fetch=FetchType.LAZY) : default EAGER
 	@JoinColumn(name="id_director", nullable=true)
 	public Person getDirector() {
@@ -109,7 +134,7 @@ public class Movie {
 		this.director = director;
 	}
 
-	@ManyToMany //(fetch = FetchType.EAGER)
+	@ManyToMany //(fetch = FetchType.EAGER) // load all actors with movie
 	 @JoinTable(name="act",
      	joinColumns=@JoinColumn(name="id_movie"),
      	inverseJoinColumns=@JoinColumn(name="id_actor")

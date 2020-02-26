@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
 import cinema.persistence.entity.Movie;
+import cinema.persistence.entity.Person;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
 import cinema.service.IMovieService;
@@ -39,25 +41,80 @@ public class MovieService implements IMovieService {
 	}
 
 	@Override
-	public Optional<Movie> getMovieById(int idMovie) {
-		return movieRepository.findById(idMovie);
+	public Optional<MovieFull> getMovieById(int idMovie) {
+		return movieRepository.findById(idMovie)
+				.map(me -> mapper.map(me, MovieFull.class));
 	}
 
 	@Override
-	public Set<Movie> getMovieByPartialTitle(String partialTitle) {
-		return movieRepository.findByTitleContainingIgnoreCase(partialTitle);
+	public Set<MovieLight> getMovieByPartialTitle(String partialTitle) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Set<Movie> getMoviesByDirector(int idDirector) {
-		var directorOpt = personRepository.findById(idDirector);
-		return directorOpt.map(d->movieRepository.findByDirector(d))
-				.orElseGet(()->Collections.emptySet());
+	public Set<MovieLight> getMoviesByDirector(int idDirector) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Set<Movie> getMoviesByActor(int idActor) {
-		return movieRepository.findByActorsIdPerson(idActor);
+	public Set<MovieLight> getMoviesByActor(int idActor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public MovieFull addMovie(MovieFull movieDto) {
+		Movie movieEntity = mapper.map(movieDto, Movie.class);
+		movieRepository.save(movieEntity);
+		mapper.map(movieEntity, movieDto);
+		return movieDto;
+	}
+
+	@Override
+	public Optional<MovieFull> modifyMovie(MovieFull movie) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<MovieFull> addActor(int idActor, int idMovie) {
+		return movieRepository.findById(idMovie)
+			.flatMap((Movie me) -> personRepository.findById(idActor)
+					.map((Person a) -> { 
+							me.getActors().add(a);
+							return mapper.map(me, MovieFull.class);
+					}));
+	}
+
+//	@Override
+//	public Set<MovieLight> getMovieByPartialTitle(String partialTitle) {
+//		return movieRepository.findByTitleContainingIgnoreCase(partialTitle);
+//	}
+//
+//	@Override
+//	public Set<MovieLight> getMoviesByDirector(int idDirector) {
+//		var directorOpt = personRepository.findById(idDirector);
+//		return directorOpt.map(d->movieRepository.findByDirector(d))
+//				.orElseGet(()->Collections.emptySet());
+//	}
+//
+//	@Override
+//	public Set<MovieLight> getMoviesByActor(int idActor) {
+//		return movieRepository.findByActorsIdPerson(idActor);
+//	}
+//
+//	@Override
+//	public MovieFull addMovie(MovieFull movie) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Optional<MovieFull> modifyMovie(MovieFull movie) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

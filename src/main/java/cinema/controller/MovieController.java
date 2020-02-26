@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
-import cinema.persistence.entity.Movie;
 
 import cinema.service.IMovieService;
 
@@ -37,39 +37,42 @@ public class MovieController {
 	
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Optional<Movie> movieById(@PathVariable("id") int idMovie) {
+	public Optional<MovieFull> movieById(@PathVariable("id") int idMovie) {
 		return movieService.getMovieById(idMovie);
 	}
 	
 	@GetMapping("/byTitle")
 	@ResponseBody
-	public Set<Movie> movieByPartialTitle(@RequestParam("t") String partialTitle) {
+	public Set<MovieLight> movieByPartialTitle(@RequestParam("t") String partialTitle) {
 		return movieService.getMovieByPartialTitle(partialTitle);
 	}
 	
 	@GetMapping("/byDirector")
 	@ResponseBody
-	public Set<Movie> findByDirector(@RequestParam("d") int idDirector){
+	public Set<MovieLight> findByDirector(@RequestParam("d") int idDirector){
 		return movieService.getMoviesByDirector(idDirector);
 	}
 	
 	@GetMapping("/byActor")
 	@ResponseBody
-	public Set<Movie> findByActor(@RequestParam("a") int idActor){
+	public Set<MovieLight> findByActor(@RequestParam("a") int idActor){
 		return movieService.getMoviesByActor(idActor);
 	}
 	
-//	@PostMapping
-//	@ResponseBody
-//	public Movie addMovie(@RequestBody Movie movie) {
-//		Movie movieSaved = movieRepository.save(movie);
+	@PostMapping
+	@ResponseBody
+	public MovieFull addMovie(@RequestBody MovieFull movie) {
+		return movieService.addMovie(movie);
+//		MovieFull movieSaved = movieRepository.save(movie);
 //		movieRepository.flush();
 //		return movieSaved;
-//	}
-//
-//	@PutMapping("/modify")
-//	@ResponseBody
-//	public Optional<Movie> modifyMovie(@RequestBody Movie movie) {
+	}
+
+	@PutMapping("/modify")
+	@ResponseBody
+	public Optional<MovieFull> modifyMovie(@RequestBody MovieFull movie) {
+		return movieService.modifyMovie(movie);
+	}
 //		// TODO : anywhere else
 //		var optMovie = movieRepository.findById(movie.getIdMovie());
 //		optMovie.ifPresent(m-> {
@@ -83,17 +86,10 @@ public class MovieController {
 //		return optMovie;
 //	}
 //	
-//	@PutMapping("/addActor")
-//	public Optional<Movie> addActor(@RequestParam("a") int idActor, @RequestParam("m") int idMovie) {
-//		// TODO : anywhere else
-//		var movieOpt = movieRepository.findById(idMovie);
-//		var actorOpt = personRepository.findById(idActor);
-//		if (movieOpt.isPresent() && actorOpt.isPresent()) {
-//			movieOpt.get().getActors().add(actorOpt.get());
-//			movieRepository.flush();
-//		}
-//		return movieOpt;
-//	}
+	@PutMapping("/addActor")
+	public Optional<MovieFull> addActor(@RequestParam("a") int idActor, @RequestParam("m") int idMovie) {
+		return movieService.addActor(idActor, idMovie);
+	}
 //	
 //	@PutMapping("/setDirector")
 //	public Optional<Movie> setDirector(@RequestParam("d") int idDirector, @RequestParam("m") int idMovie) {
