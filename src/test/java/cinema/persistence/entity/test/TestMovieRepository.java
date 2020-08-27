@@ -24,7 +24,7 @@ import cinema.persistence.entity.Person;
 import cinema.persistence.repository.MovieRepository;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
+@AutoConfigureTestDatabase(replace = Replace.ANY)
 class TestMovieRepository {
 
 	@Autowired
@@ -41,7 +41,6 @@ class TestMovieRepository {
 		movieRepository.save(movie);
 		// then 
 		var id = movie.getIdMovie();
-		System.out.println("Id new movie: " + id);
 		assertNull(id);
 	}
 	
@@ -55,8 +54,9 @@ class TestMovieRepository {
 		// when 
 		movieRepository.save(movie);
 		// then 
-		System.out.println(movie);
-		System.out.println(person);
+		//System.out.println(movie);
+		//System.out.println(person);
+		// TODO : asserts
 	}
 	
 	@Test
@@ -90,7 +90,6 @@ class TestMovieRepository {
 		var id = movie.getIdMovie();
 		// when
 		var movieReadOpt = movieRepository.findById(id);
-		System.out.println(movieReadOpt);
 		assertAll(
 				()->assertTrue(movieReadOpt.isPresent()),
 				()->assertEquals(movie.getTitle(), movieReadOpt.get().getTitle()));
@@ -110,7 +109,7 @@ class TestMovieRepository {
 		// when
 		var dataRead = movieRepository.findByTitle(title);
 		// then
-		// assertEquals(title, actual);
+		assertAll(dataRead.stream().map(m->()->assertEquals(title, m.getTitle())));
 	}
 	
 	@Test
@@ -129,7 +128,6 @@ class TestMovieRepository {
 		// when
 		var dataRead = movieRepository.findByYearBetween(year1, year2);
 		// then
-		System.out.println(dataRead);
 		assertAll(
 				() -> assertEquals(3, dataRead.size()),
 				() -> assertTrue(dataRead.stream()
@@ -151,7 +149,6 @@ class TestMovieRepository {
 		// when
 		var dataRead = movieRepository.findByTitleAndYear(title, year);
 		// then
-		System.out.println(dataRead);
 		// TODO : asserts
 	}	
 	

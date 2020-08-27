@@ -33,7 +33,7 @@ public class Movie {
 	private Set<String> genres;
 	
 	private Person director;
-	private Map<Person, String> actors;
+	private Set<Person> actors;
 	
 	public Movie() {
 		this(null,null);
@@ -60,7 +60,7 @@ public class Movie {
 		this.year = year;
 		this.duration = duration;
 		this.director = director;
-		this.actors = new HashMap<>();
+		this.actors = new TreeSet<>();
 		this.genres = new TreeSet<>();
 	}
 
@@ -117,14 +117,12 @@ public class Movie {
      	joinColumns=@JoinColumn(name="id_movie"),
      	inverseJoinColumns=@JoinColumn(name="id_actor")
      )
-	public List<Person> getActors() {
-		return actors.keySet().stream().
-				collect(Collectors.toList());
+	public Set<Person> getActors() {
+		return actors;
 	}
 
-	public void setActors(List<Person> actors) {
-		// TODO TODO TODO
-		this.actors = null;
+	public void setActors(Set<Person> actors) {
+		this.actors = actors;
 	}
 	
 	@Override
