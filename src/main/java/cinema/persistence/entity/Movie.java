@@ -147,6 +147,11 @@ public class Movie {
 		this.actors = actors;
 	}
 	
+	@Transient
+	public int getNumberActors() {
+		return actors.size();
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder(title);

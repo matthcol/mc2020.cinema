@@ -1,28 +1,29 @@
 package cinema.dto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 public class MovieFull extends MovieLight {
 	private String originalTitle;
-	public String getOriginalTitle() {
-		return originalTitle;
-	}
-	public void setOriginalTitle(String originalTitle) {
-		this.originalTitle = originalTitle;
-	}
 	private Integer duration;
 	private List<String> genres;
 	private String synopsis;
+	private PersonDto director;
+	private List<PersonDto> actors;
+	private int numberActors;
+	
+	
+	public String getOriginalTitle() {
+		return originalTitle;
+	}
+	
+	public void setOriginalTitle(String originalTitle) {
+		this.originalTitle = originalTitle;
+	}
 	
 	public Integer getDuration() {
 		return duration;
 	}
+	
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
@@ -39,5 +40,28 @@ public class MovieFull extends MovieLight {
 		this.synopsis = synopsis;
 	}
 
-	
+	public PersonDto getDirector() {
+		return director;
+	}
+
+	public void setDirector(PersonDto director) {
+		this.director = director;
+	}
+
+	public List<PersonDto> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<PersonDto> actors) {
+		this.actors = actors;
+	}
+
+	public int getNumberActors() {
+		return numberActors;
+	}
+
+	public void setNumberActors(int numberActors) {
+		this.numberActors = numberActors;
+	}
+
  }

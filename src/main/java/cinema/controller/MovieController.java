@@ -73,47 +73,22 @@ public class MovieController {
 	public Optional<MovieFull> modifyMovie(@RequestBody MovieFull movie) {
 		return movieService.modifyMovie(movie);
 	}
-//		// TODO : anywhere else
-//		var optMovie = movieRepository.findById(movie.getIdMovie());
-//		optMovie.ifPresent(m-> {
-//			m.setTitle(movie.getTitle());
-//			m.setYear(movie.getYear());
-//			m.setDuration(movie.getDuration());
-//			m.setDirector(movie.getDirector());
-//			movieRepository.flush();
-//		});
-//		//		
-//		return optMovie;
-//	}
-//	
+
 	@PutMapping("/addActor")
 	public Optional<MovieFull> addActor(@RequestParam("a") int idActor, @RequestParam("m") int idMovie) {
 		return movieService.addActor(idActor, idMovie);
 	}
 //	
-//	@PutMapping("/setDirector")
-//	public Optional<Movie> setDirector(@RequestParam("d") int idDirector, @RequestParam("m") int idMovie) {
-//		// TODO : anywhere else
-//		var movieOpt = movieRepository.findById(idMovie);
-//		var directorOpt = personRepository.findById(idDirector);
-//		if (movieOpt.isPresent() && directorOpt.isPresent()) {
-//			movieOpt.get().setDirector(directorOpt.get());
-//			movieRepository.flush();
-//		}
-//		return movieOpt;
-//	}
-//	
-//	
-//	@DeleteMapping("/{id}")
-//	@ResponseBody
-//	public Optional<Movie> deleteMovie(@PathVariable("id") int idMovie) {
-//		// TODO : anywhere else
-//		var movieToDelete = movieRepository.findById(idMovie);
-//		movieToDelete.ifPresent(m-> {
-//			movieRepository.delete(m);
-//			movieRepository.flush();
-//		});
-//		// 
-//		return movieToDelete;
-//	}
+	@PutMapping("/setDirector")
+	public Optional<MovieFull> setDirector(
+			@RequestParam("d") int idDirector, @RequestParam("m") int idMovie) 
+	{
+		return movieService.setDirector(idDirector, idMovie);
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseBody
+	public Optional<MovieFull> deleteMovie(@PathVariable("id") int idMovie) {
+		return movieService.deleteMovie(idMovie);
+	}
 }
