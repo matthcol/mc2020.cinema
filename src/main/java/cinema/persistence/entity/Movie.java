@@ -33,7 +33,7 @@ public class Movie {
 	private Set<String> genres;
 	
 	private Person director;
-	private Set<Person> actors;
+	private List<Person> actors;
 	
 	public Movie() {
 		this(null,null);
@@ -60,7 +60,7 @@ public class Movie {
 		this.year = year;
 		this.duration = duration;
 		this.director = director;
-		this.actors = new TreeSet<>();
+		this.actors = new ArrayList<>();
 		this.genres = new TreeSet<>();
 	}
 
@@ -117,11 +117,11 @@ public class Movie {
      	joinColumns=@JoinColumn(name="id_movie"),
      	inverseJoinColumns=@JoinColumn(name="id_actor")
      )
-	public Set<Person> getActors() {
+	public List<Person> getActors() {
 		return actors;
 	}
 
-	public void setActors(Set<Person> actors) {
+	public void setActors(List<Person> actors) {
 		this.actors = actors;
 	}
 	

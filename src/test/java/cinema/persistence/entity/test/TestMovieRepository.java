@@ -41,7 +41,7 @@ class TestMovieRepository {
 		movieRepository.save(movie);
 		// then 
 		var id = movie.getIdMovie();
-		assertNull(id);
+		assertNotNull(id);
 	}
 	
 	
